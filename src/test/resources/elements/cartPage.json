@@ -1,0 +1,37 @@
+[
+  {
+    "key": "cartPrice",
+    "value": "//li[@class='m-orderSummary__item -grandTotal']//span[@class='m-orderSummary__value']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageIncreaseQty",
+    "value": "//select[@id='quantitySelect0-key-0']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageIncreaseQtyValue",
+    "value": "//option[@value='2']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageQuantityValue",
+    "value": "//input[@class='a-select__input']",
+    "type": "xpath"
+  },
+  {
+    "key": "removeButton",
+    "value": "//button[@class = 'm-basket__remove']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageEmpty",
+    "value": "//strong[@class='m-empty__messageTitle']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageEmptyNotify",
+    "value": "//h4[@id='notifyTitle']",
+    "type": "xpath"
+  }
+]

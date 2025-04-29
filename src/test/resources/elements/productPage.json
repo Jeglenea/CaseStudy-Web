@@ -1,0 +1,32 @@
+[
+  {
+    "key": "productTitle",
+    "value": "//h1[@class='o-productDetail__title']",
+    "type": "xpath"
+  },
+  {
+    "key": "productPrice",
+    "value": "//ins[@class='m-price__new']",
+    "type": "xpath"
+  },
+  {
+    "key": "productPriceDiscounted",
+    "value": "//span[@class='m-price__campaignPrice']",
+    "type": "xpath"
+  },
+  {
+    "key": "productDiscountDesc",
+    "value": "//span[@class='m-price__campaignDesc']",
+    "type": "xpath"
+  },
+  {
+    "key": "addToCartButton",
+    "value": "addBasket",
+    "type": "id"
+  },
+  {
+    "key": "sizeSelect",
+    "value": "//span[contains(@class,'m-variation__item') and not(contains(@class,'-disabled'))]",
+    "type": "xpath"
+  }
+]

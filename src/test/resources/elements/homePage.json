@@ -1,0 +1,62 @@
+[
+  {
+    "key": "homePageSearchBox",
+    "value": "//input[@class='o-header__search--input']",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageSearchBoxClose",
+    "value": "//button[contains(@class, 'o-header__search--close')]",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageCookies",
+    "value": "//div[@class='ot-sdk-container']",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageCookiesReject",
+    "value": "//button[contains(@id, 'reject')]",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageGenderSelect",
+    "value": "//button[contains(@class, 'closeButton')]",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageLogo",
+    "value": "//a[@class='o-header__logo']",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageNavbar",
+    "value": "//nav[@class='o-navbar']",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageFooter",
+    "value": "//footer[@class='o-footer']",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageFooterTop",
+    "value": "//div[@class='o-footer__top']//span",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageFooterBottom",
+    "value": "//div[@class='o-footer__col']//a",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageSearchSuggestion",
+    "value": "//div[@class='o-searchSuggestion__searchSuggestion']//strong",
+    "type": "xpath"
+  },
+  {
+    "key": "homePageSearchSuggestionItem",
+    "value": "//a[@class='o-productCard__link']//span",
+    "type": "xpath"
+  }
+]

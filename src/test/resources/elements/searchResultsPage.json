@@ -1,0 +1,27 @@
+[
+  {
+    "key": "searchPageProductList",
+    "value": "//div[contains(@class, 'm-productCard')]",
+    "type": "xpath"
+  },
+  {
+    "key": "searchPageProductDesc",
+    "value": "//span[@class='m-productCard__desc']",
+    "type": "xpath"
+  },
+  {
+    "key": "searchPageSearchBox",
+    "value": "//input[@id='o-searchSuggestion__input']",
+    "type": "xpath"
+  },
+  {
+    "key": "searchPageSearchFind",
+    "value": "//div[@id='productListTitle']//b",
+    "type": "xpath"
+  },
+  {
+    "key": "searchPageSearchFilter",
+    "value": "//span[contains(@class,'o-subCategories__item')]",
+    "type": "xpath"
+  }
+]
