@@ -5,18 +5,13 @@
     "type": "xpath"
   },
   {
-    "key": "productPrice",
-    "value": "//ins[@class='m-price__new']",
+    "key": "productPriceOld",
+    "value": "//del[@id='priceOld']",
     "type": "xpath"
   },
   {
-    "key": "productPriceDiscounted",
-    "value": "//span[@class='m-price__campaignPrice']",
-    "type": "xpath"
-  },
-  {
-    "key": "productDiscountDesc",
-    "value": "//span[@class='m-price__campaignDesc']",
+    "key": "productPriceNew",
+    "value": "//ins[@id='priceNew']",
     "type": "xpath"
   },
   {
@@ -25,8 +20,33 @@
     "type": "id"
   },
   {
-    "key": "sizeSelect",
+    "key": "productPageSizeSelect",
     "value": "//span[contains(@class,'m-variation__item') and not(contains(@class,'-disabled'))]",
+    "type": "xpath"
+  },
+  {
+    "key": "productPageSizeSelectEmergency",
+    "value": "//span[contains(@class,'m-variation__item') and not(contains(@class,'-disabled') and contains(@class, '-criticalStock'))]",
+    "type": "xpath"
+  },
+  {
+    "key": "productPageAddSuccess",
+    "value": "//div[@class='m-notification success']",
+    "type": "xpath"
+  },
+  {
+    "key": "productPageAddSuccessText",
+    "value": "//div[@class='m-notification success']//h4",
+    "type": "xpath"
+  },
+  {
+    "key": "productPageCampaings",
+    "value": "//div[@class='m-campaignWrapper__detail']",
+    "type": "xpath"
+  },
+  {
+    "key": "productPageCampaingsName",
+    "value": "//h3[@class='o-customPanelPopup__contentTitle o-customPanelPopup__contentCampaignTitle']",
     "type": "xpath"
   }
 ]

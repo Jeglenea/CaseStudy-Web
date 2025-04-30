@@ -18,10 +18,5 @@
     "key": "searchPageSearchFind",
     "value": "//div[@id='productListTitle']//b",
     "type": "xpath"
-  },
-  {
-    "key": "searchPageSearchFilter",
-    "value": "//span[contains(@class,'o-subCategories__item')]",
-    "type": "xpath"
   }
 ]

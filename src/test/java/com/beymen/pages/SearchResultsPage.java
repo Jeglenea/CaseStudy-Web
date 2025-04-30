@@ -33,6 +33,7 @@ public class SearchResultsPage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", randomProduct);
             new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(randomProduct));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", randomProduct);
+            logger.info("Clicked on product with XPath: " + productXPath);
         } else {
             throw new RuntimeException("Ürün listesi boş, seçim yapılamadı.");
         }
@@ -53,6 +54,7 @@ public class SearchResultsPage extends BasePage {
             // Scroll to the selected product before clicking
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", randomProduct);
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", randomProduct);
+            logger.info("Clicked on product with XPath: " + productXPath);
         } else {
             throw new RuntimeException("Ürün listesi boş, seçim yapılamadı.");
         }

@@ -56,7 +56,7 @@
   },
   {
     "key": "homePageSearchSuggestionItem",
-    "value": "//a[@class='o-productCard__link']//span",
+    "value": "//a[@class='o-productCard__link']//span[@class='o-productCard__content--desc']",
     "type": "xpath"
   }
 ]

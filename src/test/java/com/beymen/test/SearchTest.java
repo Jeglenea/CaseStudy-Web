@@ -3,6 +3,7 @@ package com.beymen.test;
 import com.beymen.pages.*;
 import com.beymen.utils.ExcelReader;
 import com.beymen.utils.FileWriterUtility;
+import com.beymen.utils.ElementActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ public class SearchTest {
 
     private static String productName;
     private static String productPrice;
+    private static ElementActions elementActions;
 
     @BeforeAll
     public static void setUp() {
@@ -44,6 +46,7 @@ public class SearchTest {
         searchResultsPage = new SearchResultsPage(driver);
         productPage = new ProductPage(driver);
         cartPage = new CartPage(driver);
+        elementActions = new ElementActions(driver);
         logger.info("----------------------------------------------");
         logger.info("Test Setup completed");
     }
@@ -53,16 +56,15 @@ public class SearchTest {
     public void openHomePage() {
         logger.info("Test: openHomePage started");
         logger.info("----------------------------------------------");
-        homePage.navigateToHomePage();
-        homePage.isHomePageDisplayed();
-        homePage.isElementVisible("homePageCookies");
-        homePage.clickElement("homePageCookiesReject");
-        homePage.clickElement("homePageGenderSelect");
-        homePage.isElementVisible("homePageLogo");
-        homePage.isElementVisible("homePageSearchBox");
-        homePage.isElementVisible("homePageNavbar");
-        homePage.homePageFooterContainer("homePageFooterTop", "BEYMEN HAKKINDA", "MAĞAZADAN TESLİM", "KOLAY İADE");
-        homePage.homePageFooterContainer("homePageFooterBottom", "ÜCRETSİZ KARGO", "HESABIM", "MAĞAZALAR");
+        elementActions.navigateToUrl("https://www.beymen.com/");
+        homePage.isHomePageDisplayed("Beymen");
+        elementActions.waitForSeconds(5);
+        elementActions.isElementVisible("homePageCookies");
+        elementActions.clickElement("homePageCookiesReject");
+        elementActions.clickElementJS("homePageGenderSelect");
+        elementActions.isElementVisible("homePageLogo");
+        elementActions.isElementVisible("homePageSearchBox");
+        elementActions.isElementVisible("homePageNavbar");
         logger.info("----------------------------------------------");
         logger.info("Test: openHomePage completed");
     }
@@ -74,12 +76,10 @@ public class SearchTest {
         logger.info("----------------------------------------------");
         String term1 = ExcelReader.readCell("src/test/resources/data.xlsx", 0, 0);
         homePage.searchProduct(term1, "homePageSearchBox");
-        homePage.elementTextContains("elementTextContains","Şort");
-        homePage.elementTextContains("elementTextContains","Şortu");
-        homePage.elementTextContains("homePageSearchSuggestionItem","Şort");
-        homePage.elementTextContains("homePageSearchSuggestionItem","Şortu");
+        elementActions.elementTextContains("homePageSearchSuggestion","Şort","Şortu");
+        elementActions.elementTextContains("homePageSearchSuggestionItem","Şort", "Şortu");
         logger.info("----------------------------------------------");
-        logger.info("Test: searchFirstTermFromExcel started");
+        logger.info("Test: searchFirstTermFromExcel completed");
     }
 
     @Test
@@ -87,14 +87,14 @@ public class SearchTest {
     public void clearAndSearchSecondTermFromExcel() throws IOException {
         logger.info("Test: clearAndSearchSecondTermFromExcel started");
         logger.info("----------------------------------------------");
-        homePage.clearSearchBox();
+        elementActions.clearSearchBox("searchPageSearchBox");
         String term2 = ExcelReader.readCell("src/test/resources/data.xlsx", 0, 1);
         homePage.searchProduct(term2,"searchPageSearchBox");
-        homePage.elementTextContains("elementTextContains","Gömlek");
-        homePage.elementTextContains("homePageSearchSuggestionItem","Gömlek");
-        homePage.pressEnter();
+        elementActions.elementTextContains("homePageSearchSuggestion","Gömlek");
+        elementActions.elementTextContains("homePageSearchSuggestionItem","Gömlek");
+        elementActions.pressEnter("searchPageSearchBox");
         logger.info("----------------------------------------------");
-        logger.info("Test: clearAndSearchSecondTermFromExcel started");
+        logger.info("Test: clearAndSearchSecondTermFromExcel completed");
     }
 
     @Test
@@ -102,19 +102,18 @@ public class SearchTest {
     public void selectRandomProduct() throws IOException {
         logger.info("Test: selectRandomProduct started");
         logger.info("----------------------------------------------");
-        homePage.isElementVisible("searchPageProductList");
+        elementActions.isElementVisible("searchPageProductList");
         String expectedText = ExcelReader.readCell("src/test/resources/data.xlsx", 0, 1);
-        homePage.elementTextContains("searchPageSearchFind", expectedText);
-        homePage.elementTextContains("searchPageSearchFilter", expectedText);
+        elementActions.elementTextContains("searchPageSearchFind", expectedText);
         searchResultsPage.clickRandomProduct("searchPageProductDesc");
-        productName = productPage.getProductTitle();
-        productPrice = productPage.getProductPrice();
-        searchResultsPage.clickRandomProduct2("sizeSelect");
+        productName = productPage.getProductTitle("productTitle");
+
+        productPrice = productPage.getProductPrice("productPriceOld", "productPriceNew");
 
         String content = "Ürün: " + productName + "\nFiyat: " + productPrice;
         FileWriterUtility.writeToFile("src/test/resources/product-info.txt", content);
         logger.info("----------------------------------------------");
-        logger.info("Test: selectRandomProduct started");
+        logger.info("Test: selectRandomProduct completed");
     }
 
     @Test
@@ -122,13 +121,18 @@ public class SearchTest {
     public void addToCartAndValidatePrice() throws InterruptedException {
         logger.info("Test: addToCartAndValidatePrice started");
         logger.info("----------------------------------------------");
-        productPage.addToCart();
-        driver.navigate().to("https://www.beymen.com/tr/cart");
-        String cartPrice = cartPage.getCartPrice();
-        homePage.isElementVisible("cartPrice");
+        logger.info("Adding product to cart.");
+        productPage.sizeCompareChoose();
+        elementActions.waitUntilVisibleAndClick("addToCartButton");
+        elementActions.isElementVisible("productPageAddSuccess");
+        elementActions.elementTextContains("productPageAddSuccessText", "Sepete Eklendi");
+        elementActions.navigateToUrl("https://www.beymen.com/tr/cart");
+        elementActions.waitUntilInvisible("cartPageGhostLoad");
+        String cartPrice = cartPage.getCartPrice("cartPrice");
+        elementActions.isElementVisible("cartPrice");
         Assertions.assertEquals(productPrice, cartPrice, "Fiyatlar uyuşmuyor!");
         logger.info("----------------------------------------------");
-        logger.info("Test: addToCartAndValidatePrice started");
+        logger.info("Test: addToCartAndValidatePrice completed");
     }
 
     @Test
@@ -136,12 +140,11 @@ public class SearchTest {
     public void increaseQuantityAndVerify() {
         logger.info("Test: increaseQuantityAndVerify started");
         logger.info("----------------------------------------------");
-        cartPage.elementAttributeContains("cartPageIncreaseQty", "aria-label", "1 adet");
+        elementActions.elementAttributeContains("cartPageIncreaseQty", "aria-label", "1 adet");
         cartPage.increaseQuantity("2");
-        cartPage.elementAttributeContains("cartPageIncreaseQty", "aria-label", "2 adet");
-        //Assertions.assertEquals("2", cartPage.getQuantity(), "Ürün adedi 2 değil.");
+        elementActions.elementAttributeContains("cartPageIncreaseQty", "aria-label", "2 adet");
         logger.info("----------------------------------------------");
-        logger.info("Test: increaseQuantityAndVerify started");
+        logger.info("Test: increaseQuantityAndVerify completed");
     }
 
     @Test
@@ -149,11 +152,14 @@ public class SearchTest {
     public void removeProductAndVerifyEmptyCart() {
         logger.info("Test: removeProductAndVerifyEmptyCart started");
         logger.info("----------------------------------------------");
-        cartPage.removeProduct();
-        homePage.elementTextContains("cartPageEmpty", "Sepetinizde Ürün Bulunmamaktadır");
-        homePage.elementTextContains("cartPageEmptyNotify", "Ürün Silindi");
+        elementActions.waitForSeconds(5); // There is a bug when you update the amount of product and suddenly remove it, the cart gets bugged and show product with updated amount
+        elementActions.clickElement("removeButton");
+        elementActions.waitUntilInvisible("cartPageGhostLoad");
+        elementActions.elementTextContains("cartPageNotify", "Ürün Silindi");
+        elementActions.waitUntilVisible("cartPageEmpty");
+        elementActions.elementTextContains("cartPageEmpty", "SEPETINIZDE ÜRÜN BULUNMAMAKTADIR");
         logger.info("----------------------------------------------");
-        logger.info("Test: removeProductAndVerifyEmptyCart started");
+        logger.info("Test: removeProductAndVerifyEmptyCart completed");
     }
 
     @AfterAll

@@ -1,7 +1,7 @@
 [
   {
     "key": "cartPrice",
-    "value": "//li[@class='m-orderSummary__item -grandTotal']//span[@class='m-orderSummary__value']",
+    "value": "//li[@class='m-orderSummary__item']/span[.='Toplam Tutar (KDV Dahil)']/following-sibling::span[@class='m-orderSummary__value']",
     "type": "xpath"
   },
   {
@@ -26,12 +26,17 @@
   },
   {
     "key": "cartPageEmpty",
-    "value": "//strong[@class='m-empty__messageTitle']",
+    "value": "//div[@class='m-empty -basket']//strong[@class='m-empty__messageTitle']",
     "type": "xpath"
   },
   {
-    "key": "cartPageEmptyNotify",
+    "key": "cartPageNotify",
     "value": "//h4[@id='notifyTitle']",
+    "type": "xpath"
+  },
+  {
+    "key": "cartPageGhostLoad",
+    "value": "//div[@class='m-basket__body']/div[@class='-ghostLoading']",
     "type": "xpath"
   }
 ]
