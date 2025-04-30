@@ -57,8 +57,8 @@ public class SearchTest {
         logger.info("Test: openHomePage started");
         logger.info("----------------------------------------------");
         elementActions.navigateToUrl("https://www.beymen.com/");
+        elementActions.waitForSeconds(2);
         homePage.isHomePageDisplayed("Beymen");
-        elementActions.waitForSeconds(5);
         elementActions.isElementVisible("homePageCookies");
         elementActions.clickElement("homePageCookiesReject");
         elementActions.clickElementJS("homePageGenderSelect");
@@ -131,6 +131,7 @@ public class SearchTest {
         String cartPrice = cartPage.getCartPrice("cartPrice");
         elementActions.isElementVisible("cartPrice");
         Assertions.assertEquals(productPrice, cartPrice, "Fiyatlar uyuşmuyor!");
+        logger.info("Fiyatlar karşılaştırıldı ve eşleşti: " + productPrice + " == " + cartPrice);
         logger.info("----------------------------------------------");
         logger.info("Test: addToCartAndValidatePrice completed");
     }
